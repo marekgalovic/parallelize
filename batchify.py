@@ -1,7 +1,7 @@
 class Batchify:
-  def __init__(self, items, max_batches_count):
+  def __init__(self, items, maxBatches):
     self.items = items
-    self.max_batches_count = max_batches_count
+    self.maxBatches = maxBatches
 
   def results(self):
     parallelize_on = self.parallelizeOn()
@@ -19,8 +19,8 @@ class Batchify:
     }
 
   def getBatchesCount(self, parallelize_on):
-    if parallelize_on['length'] > self.max_batches_count:
-      return self.max_batches_count
+    if parallelize_on['length'] > self.maxBatches:
+      return self.maxBatches
 
     return parallelize_on['length']
 

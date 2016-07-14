@@ -6,11 +6,11 @@ class ModelEvaluator:
   def __init__(self, parallelize):
     self.parallelize = parallelize
 
-  def run(self, model, **kwargs):
-    self.model = model
+  def run(self, func, **kwargs):
+    self.func = func
     self.arguments = kwargs
     self.startTime = datetime.now()
-    self.batchify = Batchify(kwargs, self.parallelize.getConfig('threadsCount'))
+    self.batchify = Batchify(kwargs, self.parallelize.getConfig('threads'))
     self.runThreads()
 
   def runThreads(self):
@@ -26,7 +26,7 @@ class ModelEvaluator:
         arguments[iterable] = value
         self.nestedIterator(**arguments)
     else:
-      self.parallelize.queueResult(self.model(**arguments))
+      self.parallelize.queueResult(self.func(**arguments))
 
   def statistics(self):
     duration = datetime.now() - self.startTime
