@@ -47,7 +47,7 @@ for batch in batchify.results():
 `results()` method is a generator, so if you want to get result as an array you need to call it inside `list()`.
 
 ### Parallelizing iterative tasks
-This library is meant to ease and speed up testing of hyperparameter combinations. ModelEvaluator allows you to create big iterative task which is then splitted into smaller chunks and executed in parallel. Under the hood, iterable attributes are converted into nested loops. In this case, total number of iterations will be 6090 (2x29x105) because three iterable parameters `impurity`, `depth`, `bins` are specified.
+This library is meant to ease and speed up testing of hyperparameter combinations. ModelEvaluator allows you to create big iterative task which is then splitted into smaller chunks and executed in parallel (chunks of data are distributed evenly across all threads). Under the hood, iterable attributes are converted into nested loops. In this case, total number of iterations will be 6090 (2x29x105) because three iterable parameters `impurity - 2 iterations`, `depth - 29 iterations`, `bins - 105 iterations` are specified.
 ```
 from parallelize import Parallelize
 from parallelize.model_evaluator import ModelEvaluator
@@ -78,7 +78,7 @@ ms: 107
 s: 0
 ---------------------
 ```
-You can also call `evaluator.results()` which will return objects stored in the queue. This method a generator as well, so you need to call it inside a `list()` if you want to get results as an array.
+You can also call `evaluator.results()` which will return objects stored in the queue. This method is a generator as well, so you need to call it inside a `list()` method if you want to get results as an array.
 
 ```
 results = list(evaluator.results())
