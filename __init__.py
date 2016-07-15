@@ -31,6 +31,5 @@ class Parallelize:
       thread.join()
 
   def results(self):
-    self.join()
     while not self.queue.empty():
       yield self.queue.get()

@@ -39,6 +39,6 @@ class ModelEvaluator:
     print "s:", duration.seconds
     print "---------------------"
 
-  def results(self):
+  def results(self, func):
     return self.parallelize.results()
 
